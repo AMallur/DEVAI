@@ -3,8 +3,8 @@ import "./globals.css";
 import "./site.css";
 
 export const metadata: Metadata = {
-  title: "DEVAI — Agentic AI Developer Hub",
-  description: "MCP servers, Colab notebooks, docs, and a blog for building agentic AI tools.",
+  title: "DEVAI — AI Developer Workbench",
+  description: "Build agents, test prompt payloads, and prepare model training datasets in one developer workbench.",
 };
 
 export default function RootLayout({
