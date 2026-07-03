@@ -1,4 +1,4 @@
-export type WorkspaceTool = "agent" | "prompt" | "dataset";
+export type WorkspaceView = "discover" | "agents" | "mcp" | "toolkits" | "saved" | "agent" | "prompt" | "dataset";
 
 export type IconName =
   | "agent"
@@ -10,4 +10,12 @@ export type IconName =
   | "data"
   | "copy"
   | "download"
-  | "upload";
+  | "upload"
+  | "search"
+  | "external"
+  | "bookmark"
+  | "chevron"
+  | "close"
+  | "check"
+  | "menu"
+  | "library";

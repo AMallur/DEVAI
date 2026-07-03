@@ -1,0 +1,152 @@
+export type ResourceType = "Agent" | "MCP Server" | "Toolkit";
+
+export type LibraryResource = {
+  id: string;
+  name: string;
+  type: ResourceType;
+  summary: string;
+  maintainer: string;
+  runtime: string;
+  trust: "Official" | "Reference" | "DEVAI";
+  source: string;
+  command?: string;
+  action: string;
+  capabilities: string[];
+  icon: string;
+  color: string;
+};
+
+export const libraryResources: LibraryResource[] = [
+  {
+    id: "research-agent",
+    name: "Research Agent",
+    type: "Agent",
+    summary: "Plan, search, synthesize, and cite multi-source research.",
+    maintainer: "DEVAI",
+    runtime: "TypeScript",
+    trust: "DEVAI",
+    source: "https://openai.github.io/openai-agents-js/guides/agents/",
+    action: "Open blueprint",
+    capabilities: ["Research planning", "Source synthesis", "Citation-ready output", "Tool-aware execution"],
+    icon: "RA",
+    color: "violet",
+  },
+  {
+    id: "code-review-agent",
+    name: "Code Review Agent",
+    type: "Agent",
+    summary: "Review diffs for correctness, regressions, and maintainability.",
+    maintainer: "DEVAI",
+    runtime: "TypeScript",
+    trust: "DEVAI",
+    source: "https://openai.github.io/openai-agents-js/guides/agents/",
+    action: "Open blueprint",
+    capabilities: ["Diff analysis", "Risk prioritization", "Actionable findings", "Repository context"],
+    icon: "CR",
+    color: "green",
+  },
+  {
+    id: "github-mcp",
+    name: "GitHub MCP",
+    type: "MCP Server",
+    summary: "Repositories, issues, pull requests, Actions, and code security.",
+    maintainer: "GitHub",
+    runtime: "Go · Docker",
+    trust: "Official",
+    source: "https://github.com/github/github-mcp-server",
+    command: "docker run -i --rm ghcr.io/github/github-mcp-server",
+    action: "View setup",
+    capabilities: ["Repository operations", "Issues and pull requests", "GitHub Actions", "Security toolsets"],
+    icon: "GH",
+    color: "ink",
+  },
+  {
+    id: "filesystem-mcp",
+    name: "Filesystem MCP",
+    type: "MCP Server",
+    summary: "Secure file operations scoped to explicitly allowed directories.",
+    maintainer: "MCP",
+    runtime: "Node.js",
+    trust: "Reference",
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+    command: "npx -y @modelcontextprotocol/server-filesystem /allowed/path",
+    action: "View setup",
+    capabilities: ["Read and write files", "Directory trees", "File search", "Allowed-root controls"],
+    icon: "FS",
+    color: "blue",
+  },
+  {
+    id: "playwright-mcp",
+    name: "Playwright MCP",
+    type: "MCP Server",
+    summary: "Browser automation through structured accessibility snapshots.",
+    maintainer: "Microsoft",
+    runtime: "Node.js",
+    trust: "Official",
+    source: "https://github.com/microsoft/playwright-mcp",
+    command: "npx @playwright/mcp@latest",
+    action: "View setup",
+    capabilities: ["Browser navigation", "Form interaction", "Page snapshots", "Storage and network tools"],
+    icon: "PW",
+    color: "teal",
+  },
+  {
+    id: "context7-mcp",
+    name: "Context7 MCP",
+    type: "MCP Server",
+    summary: "Version-aware library documentation for coding agents.",
+    maintainer: "Upstash",
+    runtime: "Remote · Node.js",
+    trust: "Official",
+    source: "https://github.com/upstash/context7",
+    command: "npx ctx7 setup",
+    action: "View setup",
+    capabilities: ["Library resolution", "Versioned documentation", "Code examples", "Remote MCP endpoint"],
+    icon: "C7",
+    color: "orange",
+  },
+  {
+    id: "openai-agents-sdk",
+    name: "OpenAI Agents SDK",
+    type: "Toolkit",
+    summary: "Agents, tools, handoffs, guardrails, sessions, and tracing.",
+    maintainer: "OpenAI",
+    runtime: "TypeScript",
+    trust: "Official",
+    source: "https://openai.github.io/openai-agents-js/",
+    command: "npm install @openai/agents zod",
+    action: "View toolkit",
+    capabilities: ["Agent orchestration", "Hosted and function tools", "Guardrails", "Built-in tracing"],
+    icon: "OA",
+    color: "mint",
+  },
+  {
+    id: "ai-sdk",
+    name: "AI SDK",
+    type: "Toolkit",
+    summary: "Provider-neutral primitives for AI applications and agents.",
+    maintainer: "Vercel",
+    runtime: "TypeScript",
+    trust: "Official",
+    source: "https://ai-sdk.dev/docs/introduction",
+    command: "npm install ai",
+    action: "View toolkit",
+    capabilities: ["Unified model API", "Structured output", "Tool calling", "Streaming UI"],
+    icon: "AI",
+    color: "ink",
+  },
+  {
+    id: "dataset-quality-kit",
+    name: "Dataset Quality Kit",
+    type: "Toolkit",
+    summary: "Validate, deduplicate, estimate, and export model-ready JSONL.",
+    maintainer: "DEVAI",
+    runtime: "Browser",
+    trust: "DEVAI",
+    source: "https://github.com/AMallur/DEVAI",
+    action: "Open tool",
+    capabilities: ["Schema validation", "Duplicate detection", "Token estimates", "Clean JSONL export"],
+    icon: "DQ",
+    color: "violet",
+  },
+];

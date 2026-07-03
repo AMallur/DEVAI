@@ -11,6 +11,14 @@ const paths: Record<IconName, React.ReactNode> = {
   copy: <><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></>,
   download: <><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></>,
   upload: <><path d="M12 21V9m0 0 4 4m-4-4-4 4M5 3h14"/></>,
+  search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></>,
+  external: <><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></>,
+  bookmark: <path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4V4Z"/>,
+  chevron: <path d="m9 18 6-6-6-6"/>,
+  close: <path d="M6 6l12 12M18 6 6 18"/>,
+  check: <path d="m5 12 4 4L19 6"/>,
+  menu: <path d="M4 6h16M4 12h16M4 18h16"/>,
+  library: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/></>,
 };
 
 export default function Icon({ name, size = 16 }: { name: IconName; size?: number }) {

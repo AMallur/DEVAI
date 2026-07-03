@@ -4,83 +4,100 @@ import { useState } from "react";
 import AgentBuilder from "./AgentBuilder";
 import DatasetForge from "./DatasetForge";
 import Icon from "./Icon";
+import Library, { type LibraryFilter } from "./Library";
 import PromptLab from "./PromptLab";
-import type { WorkspaceTool } from "./types";
+import type { IconName, WorkspaceView } from "./types";
 
-const tools = [
-  { id: "agent" as const, label: "Agent Builder", icon: "agent" as const, mode: "Build" },
-  { id: "prompt" as const, label: "Prompt Lab", icon: "prompt" as const, mode: "Test" },
-  { id: "dataset" as const, label: "Dataset Forge", icon: "dataset" as const, mode: "Data" },
+type NavigationItem = { id: WorkspaceView; label: string; icon: IconName };
+
+const libraryNav: NavigationItem[] = [
+  { id: "discover", label: "Discover", icon: "search" },
+  { id: "agents", label: "Agents", icon: "agent" },
+  { id: "mcp", label: "MCP Servers", icon: "data" },
+  { id: "toolkits", label: "Toolkits", icon: "library" },
 ];
 
-const descriptions: Record<WorkspaceTool, string> = {
-  agent: "Configure an agent and export a production-ready blueprint or starter implementation.",
-  prompt: "Compile reusable prompt variables into test payloads before calling a model API.",
-  dataset: "Validate, repair, and export JSONL for chat fine-tuning or classification.",
+const buildNav: NavigationItem[] = [
+  { id: "agent", label: "Agent Builder", icon: "build" },
+  { id: "prompt", label: "Prompt Lab", icon: "prompt" },
+  { id: "dataset", label: "Dataset Forge", icon: "dataset" },
+];
+
+const buildDescriptions: Record<"agent" | "prompt" | "dataset", string> = {
+  agent: "Configure and export portable agent blueprints.",
+  prompt: "Compile prompt variables into repeatable test suites.",
+  dataset: "Validate, clean, and export model-ready JSONL.",
 };
 
+function filterFor(view: WorkspaceView): LibraryFilter {
+  if (view === "agents") return "Agent";
+  if (view === "mcp") return "MCP Server";
+  if (view === "toolkits") return "Toolkit";
+  return "All";
+}
+
 export default function Workbench() {
-  const [active, setActive] = useState<WorkspaceTool>("agent");
-  const current = tools.find((tool) => tool.id === active) ?? tools[0];
+  const [active, setActive] = useState<WorkspaceView>("discover");
+  const [bookmarks, setBookmarks] = useState(() => new Set(["github-mcp"]));
+  const isLibrary = ["discover", "agents", "mcp", "toolkits", "saved"].includes(active);
+  const buildItem = buildNav.find((item) => item.id === active);
 
   return (
-    <main className="workbench">
-      <header className="topbar">
-        <div className="brand">DEVAI</div>
-        <nav className="mode-tabs" aria-label="Workspace modes">
-          {tools.map((tool) => (
-            <button key={tool.id} className={`mode-tab ${active === tool.id ? "active" : ""}`} onClick={() => setActive(tool.id)}>
-              <Icon name={tool.id === "agent" ? "build" : tool.id === "prompt" ? "test" : "data"} size={15} />
-              {tool.mode}
-            </button>
-          ))}
-        </nav>
-        <a className="github-link" href="https://github.com/AMallur/DEVAI" target="_blank" rel="noreferrer">
-          <Icon name="github" size={17} /> GitHub
-        </a>
+    <main className="app-shell">
+      <header className="mobile-topbar">
+        <strong>DEVAI</strong>
+        <div><button aria-label="Search"><Icon name="search" size={21} /></button><button aria-label="Open menu"><Icon name="menu" size={22} /></button></div>
       </header>
 
-      <div className="shell">
-        <aside className="sidebar">
-          <div>
-            <div className="sidebar-label">Workspace</div>
-            <nav className="side-nav" aria-label="Developer tools">
-              {tools.map((tool) => (
-                <button key={tool.id} className={`side-link ${active === tool.id ? "active" : ""}`} onClick={() => setActive(tool.id)}>
-                  <Icon name={tool.icon} size={16} /> {tool.label}
-                </button>
-              ))}
-            </nav>
+      <aside className="nav-sidebar">
+        <div className="nav-brand">DEVAI</div>
+        <nav aria-label="DEVAI navigation">
+          <div className="nav-group">
+            <span>Library</span>
+            {libraryNav.map((item) => <NavButton key={item.id} item={item} active={active === item.id} onClick={() => setActive(item.id)} />)}
           </div>
-          <div className="sidebar-spacer" />
-          <div className="status-block">
-            <div className="status-line"><span className="status-dot" /> Local tools ready</div>
-            <div className="status-version">v1.0.0 · no key required</div>
+          <div className="nav-divider" />
+          <div className="nav-group">
+            <span>Build</span>
+            {buildNav.map((item) => <NavButton key={item.id} item={item} active={active === item.id} onClick={() => setActive(item.id)} />)}
           </div>
-        </aside>
+          <div className="nav-divider" />
+          <div className="nav-group">
+            <span>Saved</span>
+            <NavButton item={{ id: "saved", label: "Bookmarks", icon: "bookmark" }} active={active === "saved"} onClick={() => setActive("saved")} />
+          </div>
+        </nav>
+        <div className="sidebar-foot">
+          <span className="status-dot" />
+          <div><strong>Local workspace</strong><small>No API key required</small></div>
+        </div>
+      </aside>
 
-        <section className="workspace">
-          <nav className="mobile-tool-nav" aria-label="Developer tools">
-            {tools.map((tool) => (
-              <button key={tool.id} className={`side-link ${active === tool.id ? "active" : ""}`} onClick={() => setActive(tool.id)}>
-                <Icon name={tool.icon} size={15} /> {tool.mode}
-              </button>
-            ))}
-          </nav>
-          <div className="workspace-header">
-            <div>
-              <h1 className="workspace-title">{current.label} <span>/ devai-workspace</span></h1>
-              <p className="workspace-copy">{descriptions[active]}</p>
-            </div>
-            <div className="header-actions">
-              <span className="button success"><span className="status-dot" /> Runs in browser</span>
-            </div>
+      <section className="app-content">
+        {isLibrary ? (
+          <Library key={active} initialFilter={filterFor(active)} savedOnly={active === "saved"} bookmarks={bookmarks} setBookmarks={setBookmarks} />
+        ) : (
+          <div className="build-workspace">
+            <header className="build-toolbar">
+              <div><h1>{buildItem?.label}</h1><p>{buildDescriptions[active as "agent" | "prompt" | "dataset"]}</p></div>
+              <a href="https://github.com/AMallur/DEVAI" target="_blank" rel="noreferrer"><Icon name="github" size={17} /> GitHub <Icon name="external" size={12} /></a>
+            </header>
+            {active === "agent" && <AgentBuilder />}
+            {active === "prompt" && <PromptLab />}
+            {active === "dataset" && <DatasetForge />}
           </div>
-          {active === "agent" && <AgentBuilder />}
-          {active === "prompt" && <PromptLab />}
-          {active === "dataset" && <DatasetForge />}
-        </section>
-      </div>
+        )}
+      </section>
+
+      <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
+        <button className={isLibrary && active !== "saved" ? "active" : ""} onClick={() => setActive("discover")}><Icon name="library" size={21} /><span>Library</span></button>
+        <button className={!isLibrary ? "active" : ""} onClick={() => setActive("agent")}><Icon name="build" size={21} /><span>Build</span></button>
+        <button className={active === "saved" ? "active" : ""} onClick={() => setActive("saved")}><Icon name="bookmark" size={21} /><span>Saved</span></button>
+      </nav>
     </main>
   );
+}
+
+function NavButton({ item, active, onClick }: { item: NavigationItem; active: boolean; onClick: () => void }) {
+  return <button className={`nav-item ${active ? "active" : ""}`} onClick={onClick}><Icon name={item.icon} size={18} /><span>{item.label}</span></button>;
 }
