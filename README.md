@@ -1,8 +1,9 @@
-# DEVAI
+# Aeryn
 
-Developer hub for agentic AI tooling — MCP servers, Colab notebooks, docs, and a blog.
+Aeryn is the home base every product ships from — one hub linking out to
+GoState, FableAgent, GAIA, RecallDock, and whatever comes next.
 
-Built with Next.js (App Router) + TypeScript, dark/monospace-accented theme.
+Built with Next.js (App Router) + TypeScript.
 
 ## Getting Started
 
@@ -16,5 +17,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it.
 ## Structure
 
 - `src/app` — root layout, page, and global styles
-- `src/components` — Nav, Hero, ToolsGrid, Docs, Blog, Contribute, Footer
-- `src/data` — tools, docs, and blog post content
+- `src/components` — Nav, Hero, ProductGrid, About, Footer
+- `src/data/products.ts` — the list of products shown on the hub; add a
+  new project here to give it a card

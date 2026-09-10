@@ -1,16 +1,21 @@
 export default function Nav() {
   return (
-    <nav>
-      <div className="nav-logo">
-        dev<span>/</span>ai
-      </div>
+    <nav className="site-nav">
+      <a className="nav-logo" href="#top">
+        aeryn<span>.</span>
+      </a>
       <ul className="nav-links">
-        <li><a href="#tools">Tools</a></li>
-        <li><a href="#docs">Docs</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contribute">Contribute</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About</a></li>
       </ul>
-      <a className="nav-cta" href="#contribute">+ Submit Tool</a>
+      <a
+        className="nav-cta"
+        href="https://github.com/AMallur/DEVAI"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub
+      </a>
     </nav>
   );
 }

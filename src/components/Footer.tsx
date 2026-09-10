@@ -1,12 +1,12 @@
 export default function Footer() {
   return (
     <footer>
-      <span className="footer-logo">dev/ai</span>
-      <span className="footer-copy">© 2025 DEVAI · MIT License</span>
+      <span className="footer-logo">aeryn</span>
+      <span className="footer-copy">© 2026 Aeryn</span>
       <div className="footer-links">
         <a href="https://github.com/AMallur/DEVAI" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="#docs">Docs</a>
-        <a href="#blog">Blog</a>
+        <a href="#products">Products</a>
+        <a href="#top">Top</a>
       </div>
     </footer>
   );

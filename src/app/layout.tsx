@@ -3,8 +3,8 @@ import "./globals.css";
 import "./site.css";
 
 export const metadata: Metadata = {
-  title: "DEVAI — AI Developer Workbench",
-  description: "Build agents, test prompt payloads, and prepare model training datasets in one developer workbench.",
+  title: "Aeryn — home base for GoState, FableAgent, GAIA & RecallDock",
+  description: "Aeryn is the single hub every product ships from — GoState, FableAgent, GAIA, RecallDock, and everything that follows.",
 };
 
 export default function RootLayout({
